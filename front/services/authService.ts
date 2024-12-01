@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/auth'; 
+const API_URL = 'https://devconnected.onrender.com/auth'; 
 
 interface AuthData {
   email: string;
