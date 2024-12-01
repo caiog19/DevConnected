@@ -13,14 +13,21 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+  
+    if (!name || !email || !password) {
+      setError('Todos os campos são obrigatórios!');
+      return;
+    }
+  
     try {
       const response = await register({ name, email, password });
-      // Redirecionar o usuário para a página de login após cadastro bem-sucedido
+      // Redirecionar para login se o cadastro for bem-sucedido
       router.push('/auth/login');
-    } catch (err) {
-      setError('Erro ao cadastrar usuário');
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Erro ao cadastrar usuário');
     }
   };
+  
 
   return (
     <div>
