@@ -7,9 +7,19 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   // Create a new user
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({ data });
+  async createUser(data: { name: string; email: string }): Promise<User> {
+    if (!data.name || !data.email) {
+      throw new Error('Name and email are required');
+    }
+  
+    return this.prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+      },
+    });
   }
+  
 
   // Find all users
   async findAll(): Promise<User[]> {
