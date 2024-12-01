@@ -1,14 +1,16 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User, Prisma } from '@prisma/client';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  async createUser(@Body() body: { name: string; email: string }) {
-    return this.usersService.createUser(body);
+  @Get('profile')
+  @UseGuards(AuthGuard('jwt'))
+  getProfile() {
+    return { message: 'This route is protected!' };
   }
 
   @Get()
