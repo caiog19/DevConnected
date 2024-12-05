@@ -4,6 +4,8 @@ import { register } from '../../services/authService';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import '../../app/globals.css';
+import Link from 'next/link';
+
 
 const Register: React.FC = () => {
   const router = useRouter();
@@ -84,9 +86,9 @@ const Register: React.FC = () => {
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
             Já tem uma conta?{' '}
-            <a href="/auth/login" className="text-blue-500 hover:underline">
+            <Link href="/auth/login" className="text-blue-500 hover:underline">
               Faça login
-            </a>
+            </Link>
           </p>
         </div>
       </div>
