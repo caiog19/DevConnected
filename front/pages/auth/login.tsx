@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { login } from '../../services/authService';
 import '../../app/globals.css';
+import Link from 'next/link';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -57,6 +58,16 @@ const Login: React.FC = () => {
             Login
           </button>
         </form>
+
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600">
+            Não tem uma conta?{' '}
+            <Link href="/auth/register" className="text-blue-500 hover:underline">
+              Cadastre-se
+            </Link>
+          </p>
+        </div>
+
       </div>
     </div>
   );
