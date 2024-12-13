@@ -1,6 +1,41 @@
 import Link from 'next/link';
 
-const HomePage: React.FC = () => {
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  tags: string[];
+  authorId: number;
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
+async function fetchPosts(): Promise<Post[]> {
+  const res = await fetch(`${API_URL}/posts/search?q=`, {
+    cache: 'no-store', // Para evitar cache
+  });
+
+  console.log('Fetch status:', res.status); // Loga o status da resposta
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch posts');
+  }
+
+  const data = await res.json();
+  console.log('Fetched posts:', data); // Loga os dados retornados
+  return data;
+}
+
+
+const HomePage = async () => {
+  let posts: Post[] = [];
+  
+  try {
+    posts = await fetchPosts();
+  } catch (error) {
+    console.error('Error fetching posts:', error); // Loga o erro no console
+  }
+
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Header */}
@@ -35,99 +70,27 @@ const HomePage: React.FC = () => {
 
       {/* Main */}
       <main className="max-w-6xl mx-auto grid grid-cols-12 gap-6 py-6">
-      
         <section className="col-span-8 bg-white p-4 rounded-md shadow-md">
           <h2 className="text-2xl font-semibold mb-4">Principais Posts</h2>
           <ul>
-            {/* Post 1 */}
-            <li className="border-b py-4 flex justify-between items-center">
-              <div>
-                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                  Erro na integraçao de Gemini API
-                </h3>
-                <div className="flex items-center space-x-2 text-sm text-gray-500">
-                  <span>API</span>
-                  <span>AI</span>
-                  <span>4 respostas</span>
+            {posts.map((post) => (
+              <li key={post.id} className="border-b py-4 flex justify-between items-center">
+                <div>
+                  <h3 className="text-xl font-semibold text-blue-500 hover:underline">
+                    {post.title}
+                  </h3>
+                  <div className="flex items-center space-x-2 text-sm text-gray-500">
+                    {post.tags && post.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
-                <span>caiog19</span>
-              </div>
-            </li>
-
-            {/* Post 2 */}
-            <li className="border-b py-4 flex justify-between items-center">
-              <div>
-                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                  Como otimizar consultas SQL com Prisma?
-                </h3>
                 <div className="flex items-center space-x-2 text-sm text-gray-500">
-                  <span>SQL</span>
-                  <span>Prisma</span>
-                  <span>2 respostas</span>
+                  <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
+                  <span>Autor ID: {post.authorId}</span>
                 </div>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
-                <span>caioggg19</span>
-              </div>
-            </li>
-
-            {/* Post 3 */}
-            <li className="border-b py-4 flex justify-between items-center">
-              <div>
-                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                  Melhor maneira de aprender Tailwind CSS
-                </h3>
-                <div className="flex items-center space-x-2 text-sm text-gray-500">
-                  <span>CSS</span>
-                  <span>Front-end</span>
-                  <span>5 respostas</span>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
-                <span>devMaster</span>
-              </div>
-            </li>
-
-            {/* Post 4 */}
-            <li className="border-b py-4 flex justify-between items-center">
-              <div>
-                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                  Como configurar o Next.js com autenticação JWT?
-                </h3>
-                <div className="flex items-center space-x-2 text-sm text-gray-500">
-                  <span>Next.js</span>
-                  <span>Auth</span>
-                  <span>3 respostas</span>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
-                <span>jwtGuru</span>
-              </div>
-            </li>
-
-            {/* Post 5 */}
-            <li className="py-4 flex justify-between items-center">
-              <div>
-                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                  O que são hooks personalizados no React?
-                </h3>
-                <div className="flex items-center space-x-2 text-sm text-gray-500">
-                  <span>React</span>
-                  <span>Hooks</span>
-                  <span>6 respostas</span>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
-                <span>reactWizard</span>
-              </div>
-            </li>
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -149,7 +112,6 @@ const HomePage: React.FC = () => {
             </ul>
           </div>
         </aside>
-
       </main>
     </div>
   );
