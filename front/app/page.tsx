@@ -10,9 +10,9 @@ const HomePage: React.FC = () => {
             <Link href="/">DevConnected</Link>
           </h1>
           <nav className="flex items-center space-x-4">
-            <Link href="/tour" className="hover:underline">Tour</Link>
-            <Link href="/about" className="hover:underline">Sobre nós</Link>
-            <Link href="/meta" className="hover:underline">Perguntas</Link>
+            <Link href="/" className="hover:underline">Sobre nós</Link>
+            <Link href="/" className="hover:underline">Perguntas</Link>
+            <Link href="/" className="hover:underline">Salvos</Link>
             <input
               type="text"
               placeholder="Buscar pelo site"
@@ -29,7 +29,6 @@ const HomePage: React.FC = () => {
                 Registrar
               </Link>
             </button>
-
           </nav>
         </div>
       </header>
@@ -40,58 +39,93 @@ const HomePage: React.FC = () => {
         <section className="col-span-8 bg-white p-4 rounded-md shadow-md">
           <h2 className="text-2xl font-semibold mb-4">Principais Posts</h2>
           <ul>
-            <li className="border-b py-4">
-              <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                Erro na integraçao de Gemini API
-              </h3>
+            {/* Post 1 */}
+            <li className="border-b py-4 flex justify-between items-center">
+              <div>
+                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
+                  Erro na integraçao de Gemini API
+                </h3>
+                <div className="flex items-center space-x-2 text-sm text-gray-500">
+                  <span>API</span>
+                  <span>AI</span>
+                  <span>4 respostas</span>
+                </div>
+              </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <span>API</span>
-                <span>AI</span>
-                <span>4 respostas</span>
+                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
+                <span>caiog19</span>
               </div>
             </li>
 
-            <li className="border-b py-4">
-              <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                Como otimizar consultas SQL com Prisma?
-              </h3>
+            {/* Post 2 */}
+            <li className="border-b py-4 flex justify-between items-center">
+              <div>
+                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
+                  Como otimizar consultas SQL com Prisma?
+                </h3>
+                <div className="flex items-center space-x-2 text-sm text-gray-500">
+                  <span>SQL</span>
+                  <span>Prisma</span>
+                  <span>2 respostas</span>
+                </div>
+              </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <span>SQL</span>
-                <span>Prisma</span>
-                <span>2 respostas</span>
+                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
+                <span>caioggg19</span>
               </div>
             </li>
 
-            <li className="border-b py-4">
-              <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                Melhor maneira de aprender Tailwind CSS
-              </h3>
+            {/* Post 3 */}
+            <li className="border-b py-4 flex justify-between items-center">
+              <div>
+                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
+                  Melhor maneira de aprender Tailwind CSS
+                </h3>
+                <div className="flex items-center space-x-2 text-sm text-gray-500">
+                  <span>CSS</span>
+                  <span>Front-end</span>
+                  <span>5 respostas</span>
+                </div>
+              </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <span>CSS</span>
-                <span>Front-end</span>
-                <span>5 respostas</span>
+                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
+                <span>devMaster</span>
               </div>
             </li>
 
-            <li className="border-b py-4">
-              <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                Como configurar o Next.js com autenticação JWT?
-              </h3>
+            {/* Post 4 */}
+            <li className="border-b py-4 flex justify-between items-center">
+              <div>
+                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
+                  Como configurar o Next.js com autenticação JWT?
+                </h3>
+                <div className="flex items-center space-x-2 text-sm text-gray-500">
+                  <span>Next.js</span>
+                  <span>Auth</span>
+                  <span>3 respostas</span>
+                </div>
+              </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <span>Next.js</span>
-                <span>Auth</span>
-                <span>3 respostas</span>
+                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
+                <span>jwtGuru</span>
               </div>
             </li>
 
-            <li className="py-4">
-              <h3 className="text-xl font-semibold text-blue-500 hover:underline">
-                O que são hooks personalizados no React?
-              </h3>
+            {/* Post 5 */}
+            <li className="py-4 flex justify-between items-center">
+              <div>
+                <h3 className="text-xl font-semibold text-blue-500 hover:underline">
+                  O que são hooks personalizados no React?
+                </h3>
+                <div className="flex items-center space-x-2 text-sm text-gray-500">
+                  <span>React</span>
+                  <span>Hooks</span>
+                  <span>6 respostas</span>
+                </div>
+              </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <span>React</span>
-                <span>Hooks</span>
-                <span>6 respostas</span>
+                <img src="/user-icon.png" alt="User" className="w-8 h-8 rounded-full" />
+                <span>reactWizard</span>
               </div>
             </li>
           </ul>
