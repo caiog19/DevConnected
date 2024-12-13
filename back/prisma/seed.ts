@@ -3,44 +3,58 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-
-  const user1 = await prisma.user.create({
-    data: {
+  
+  const user1 = await prisma.user.upsert({
+    where: { email: 'user1@example.com' },
+    update: {}, 
+    create: {
       email: 'user1@example.com',
       name: 'User One',
       password: 'password123', 
     },
   });
 
-  const user2 = await prisma.user.create({
-    data: {
+  const user2 = await prisma.user.upsert({
+    where: { email: 'user2@example.com' },
+    update: {},
+    create: {
       email: 'user2@example.com',
       name: 'User Two',
       password: 'password123',
     },
   });
-  const user3 = await prisma.user.create({
-    data: {
+
+  const user3 = await prisma.user.upsert({
+    where: { email: 'user3@example.com' },
+    update: {},
+    create: {
       email: 'user3@example.com',
       name: 'User Three',
-      password: 'password123', 
+      password: 'password123',
     },
   });
 
-  const user4 = await prisma.user.create({
-    data: {
+  const user4 = await prisma.user.upsert({
+    where: { email: 'user4@example.com' },
+    update: {},
+    create: {
       email: 'user4@example.com',
       name: 'User Four',
       password: 'password123',
     },
-  });  const user5 = await prisma.user.create({
-    data: {
+  });
+
+  const user5 = await prisma.user.upsert({
+    where: { email: 'user5@example.com' },
+    update: {},
+    create: {
       email: 'user5@example.com',
       name: 'User Five',
-      password: 'password123', // Certifique-se de que a senha seja processada adequadamente se você usar hash
+      password: 'password123',
     },
   });
 
+  // Criando posts
   await prisma.post.createMany({
     data: [
       {
@@ -76,11 +90,13 @@ async function main() {
     ],
   });
 
-  console.log("Posts criados com sucesso!");
+  console.log("Seed executado com sucesso!");
 }
 
 main()
-  .catch((e) => console.error(e))
+  .catch((e) => {
+    console.error("Erro ao executar o seed:", e);
+  })
   .finally(async () => {
     await prisma.$disconnect();
   });
