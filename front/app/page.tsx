@@ -11,20 +11,22 @@ interface Post {
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 async function fetchPosts(): Promise<Post[]> {
+  console.log('Fetching posts from:', API_URL); 
   const res = await fetch(`${API_URL}/posts/search?q=`, {
-    cache: 'no-store', // Para evitar cache
+    cache: 'no-store',
   });
 
-  console.log('Fetch status:', res.status); // Loga o status da resposta
+  console.log('Fetch status:', res.status); 
 
   if (!res.ok) {
-    throw new Error('Failed to fetch posts');
+    throw new Error(`Failed to fetch posts. Status: ${res.status}`);
   }
 
   const data = await res.json();
-  console.log('Fetched posts:', data); // Loga os dados retornados
+  console.log('Fetched posts:', data); 
   return data;
 }
+
 
 
 const HomePage = async () => {
